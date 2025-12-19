@@ -1,0 +1,19 @@
+img {
+  width: min-content;
+}
+
+.container_header {
+  display: flex;
+  align-content: space-around;
+  border: 5px black solid;
+  border-radius: 5px;
+  height: 10vh;
+  width: 95%;
+  background-color: ;
+}
+
+ul {
+  display: flex;
+  align-content: space-between;
+  width: 100%;
+}
