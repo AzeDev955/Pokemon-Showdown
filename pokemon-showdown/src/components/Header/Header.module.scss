@@ -1,0 +1,41 @@
+.header_base {
+  background: var(--color-primary);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 24px;
+}
+
+.img {
+  width: 20vb;
+  object-fit: contain;
+}
+
+.nav {
+  flex: 1;
+}
+
+.menu {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  list-style: none;
+
+  a {
+    color:var(--color-text);
+    text-decoration: none;
+    -webkit-text-stroke: 1px var(--color-text-border);
+    font-weight: 600;
+    font-size: 40px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+
+
+
+
