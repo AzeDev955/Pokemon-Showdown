@@ -4,9 +4,15 @@ import { PokemonCard } from "../PokemonCard/PokemonCard";
 import { useEffect, useState } from "react";
 
 export const Pokedex = () => {
+  interface Pokemon {
+    id: number;
+    name: string;
+    types: string[];
+    sprite: string;
+  }
   const [busqueda, setBusqueda] = useState("");
 
-  const [listaPokemon, setListaPokemon] = useState<PokemonCard[]>([]);
+  const [listaPokemon, setListaPokemon] = useState<Pokemon[]>([]);
 
   const [cargando, setCargando] = useState(true);
 
@@ -22,7 +28,7 @@ export const Pokedex = () => {
     const obtenerPokemons = async () => {
       try {
         const response = await fetch(
-          "https://pokeapi.co/api/v2/pokemon?limit=151"
+          "https://pokeapi.co/api/v2/pokemon?limit=1025"
         );
         const data = await response.json();
 
@@ -58,16 +64,28 @@ export const Pokedex = () => {
         <p>Cargando Pokédex...</p>
       ) : (
         <>
-          {pokemonFiltro.map((pokemon) => (
-            // AQUI USAMOS EL NUEVO COMPONENTE
-            <PokemonCard
-              key={pokemon.id}
-              id={pokemon.id}
-              name={pokemon.name}
-              image={pokemon.sprite}
-              types={pokemon.types}
+          <div className={styles.container_filter}>
+            <label htmlFor="filter">Introduce aquí el nombre del pokemon</label>
+            <input
+              type="text"
+              name="filter"
+              id="filter"
+              value={busqueda}
+              onChange={manejarInput}
+              placeholder="Nombre del pokemon..."
             />
-          ))}
+          </div>
+          <div className={styles.container_pokemon}>
+            {pokemonFiltro.map((pokemon) => (
+              <PokemonCard
+                key={pokemon.id}
+                id={pokemon.id}
+                name={pokemon.name}
+                image={pokemon.sprite}
+                types={pokemon.types}
+              />
+            ))}
+          </div>
         </>
       )}
     </div>
