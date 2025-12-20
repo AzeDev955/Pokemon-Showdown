@@ -1,6 +1,65 @@
 .pokedex_container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 95%;
   border: 3px transparent var(--type-bug);
   border-radius: 15px;
+}
+
+.container_filter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 20px 0;
+  gap: 10px;
+
+  label {
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    font-weight: bold;
+    color: var(--text-main);
+    margin-left: 10px;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px 20px;
+
+    /* 2. ESTETICA */
+    font-size: 1rem;
+    background-color: var(--bg-card);
+    border: 2px solid var(--border-light);
+    border-radius: 50px;
+    color: var(--text-main);
+
+    transition: all 0.3s ease;
+    outline: none;
+    &::placeholder {
+      color: var(--text-muted);
+    }
+
+    &:hover {
+      border-color: var(--color-secondary);
+      background-color: #fff;
+    }
+
+    &:focus {
+      border-color: var(--color-primary);
+      background-color: #fff;
+
+      box-shadow: 0 0 0 4px rgba(255, 203, 5, 0.2);
+      transform: scale(1.02);
+    }
+  }
+}
+.container_pokemon {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
 }
