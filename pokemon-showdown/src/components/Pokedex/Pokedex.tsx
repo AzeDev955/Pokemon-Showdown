@@ -13,11 +13,11 @@ export const Pokedex = () => {
 
   const [busqueda, setBusqueda] = useState("");
 
-  const [listaPokemon, setListaPokemon] = useState<Pokemon[]>([]);
+  //const [listaPokemon, setListaPokemon] = useState<Pokemon[]>([]);
 
-  const [cargando, setCargando] = useState(true);
+  //const [cargando, setCargando] = useState(true);
 
-  const pokemonFiltro = listaPokemon.filter((pokemon) => {
+  const pokemonFiltro = pokemons.filter((pokemon) => {
     return pokemon.name.toLowerCase().includes(busqueda.toLowerCase());
   });
 
@@ -25,77 +25,73 @@ export const Pokedex = () => {
     setBusqueda(evento.target.value);
   };
 
-  useEffect(() => {
-    const obtenerPokemons = async () => {
-      const cache = localStorage.getItem("pokedex_data");
-      if (cache) {
-        setListaPokemon(JSON.parse(cache));
-        setCargando(false);
-        return;
-      }
-      try {
-        const response = await fetch(
-          "https://pokeapi.co/api/v2/pokemon?limit=1025"
-        );
-        const data = await response.json();
+  // useEffect(() => {
+  //   const obtenerPokemons = async () => {
+  //     const cache = localStorage.getItem("pokedex_data");
+  //     if (cache) {
+  //       setListaPokemon(JSON.parse(cache));
+  //       setCargando(false);
+  //       return;
+  //     }
+  //     try {
+  //       const response = await fetch(
+  //         "https://pokeapi.co/api/v2/pokemon?limit=1025"
+  //       );
+  //       const data = await response.json();
 
-        const promesasDetalles = data.results.map(
-          async (pokemonBasico: any) => {
-            const resDetalle = await fetch(pokemonBasico.url);
-            const dataDetalle = await resDetalle.json();
+  //       const promesasDetalles = data.results.map(
+  //         async (pokemonBasico: any) => {
+  //           const resDetalle = await fetch(pokemonBasico.url);
+  //           const dataDetalle = await resDetalle.json();
 
-            return {
-              id: dataDetalle.id,
-              name: dataDetalle.name,
-              types: dataDetalle.types.map((t: any) => t.type.name),
-              sprite:
-                dataDetalle.sprites.other["official-artwork"].front_default,
-            };
-          }
-        );
+  //           return {
+  //             id: dataDetalle.id,
+  //             name: dataDetalle.name,
+  //             types: dataDetalle.types.map((t: any) => t.type.name),
+  //             sprite:
+  //               dataDetalle.sprites.other["official-artwork"].front_default,
+  //           };
+  //         }
+  //       );
 
-        const detallesCompletos = await Promise.all(promesasDetalles);
-        setListaPokemon(detallesCompletos);
-        localStorage.setItem("pokedex_data", JSON.stringify(detallesCompletos));
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setCargando(false);
-      }
-    };
-    obtenerPokemons();
-  }, []); //al parecer esto es que solo se ejecuta una vez, no se muy bien como funciona;
+  //       const detallesCompletos = await Promise.all(promesasDetalles);
+  //       setListaPokemon(detallesCompletos);
+  //       localStorage.setItem("pokedex_data", JSON.stringify(detallesCompletos));
+  //     } catch (error) {
+  //       console.error(error);
+  //     } finally {
+  //       setCargando(false);
+  //     }
+  //   };
+  //   obtenerPokemons();
+  // }, []); //al parecer esto es que solo se ejecuta una vez, no se muy bien como funciona;
 
   return (
     <div className={styles.pokedex_container}>
-      {cargando ? (
-        <p>Cargando Pokédex...</p>
-      ) : (
-        <>
-          <div className={styles.container_filter}>
-            <label htmlFor="filter">Introduce aquí el nombre del pokemon</label>
-            <input
-              type="text"
-              name="filter"
-              id="filter"
-              value={busqueda}
-              onChange={manejarInput}
-              placeholder="Nombre del pokemon..."
+      <>
+        <div className={styles.container_filter}>
+          <label htmlFor="filter">Introduce aquí el nombre del pokemon</label>
+          <input
+            type="text"
+            name="filter"
+            id="filter"
+            value={busqueda}
+            onChange={manejarInput}
+            placeholder="Nombre del pokemon..."
+          />
+        </div>
+        <div className={styles.container_pokemon}>
+          {pokemonFiltro.map((pokemon) => (
+            <PokemonCard
+              key={pokemon.id}
+              id={pokemon.id}
+              name={pokemon.name}
+              image={pokemon.sprite}
+              types={pokemon.types}
             />
-          </div>
-          <div className={styles.container_pokemon}>
-            {pokemonFiltro.map((pokemon) => (
-              <PokemonCard
-                key={pokemon.id}
-                id={pokemon.id}
-                name={pokemon.name}
-                image={pokemon.sprite}
-                types={pokemon.types}
-              />
-            ))}
-          </div>
-        </>
-      )}
+          ))}
+        </div>
+      </>
     </div>
   );
 };

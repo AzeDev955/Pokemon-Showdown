@@ -4,8 +4,9 @@
   background-color: var(--bg-card);
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  width: 200px;
+  width: 30vh;
   padding: 1.5rem;
+  letter-spacing: 3px;
 
   display: flex;
   flex-direction: column;
@@ -45,7 +46,7 @@
     font-size: 1.2rem;
     font-weight: 800;
     color: var(--text-main);
-    letter-spacing: 0.5px;
+    letter-spacing: 1.5px;
   }
 }
 
