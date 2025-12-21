@@ -10,6 +10,7 @@ export const Pokedex = () => {
     types: string[];
     sprite: string;
   }
+
   const [busqueda, setBusqueda] = useState("");
 
   const [listaPokemon, setListaPokemon] = useState<Pokemon[]>([]);
@@ -26,6 +27,12 @@ export const Pokedex = () => {
 
   useEffect(() => {
     const obtenerPokemons = async () => {
+      const cache = localStorage.getItem("pokedex_data");
+      if (cache) {
+        setListaPokemon(JSON.parse(cache));
+        setCargando(false);
+        return;
+      }
       try {
         const response = await fetch(
           "https://pokeapi.co/api/v2/pokemon?limit=1025"
@@ -49,6 +56,7 @@ export const Pokedex = () => {
 
         const detallesCompletos = await Promise.all(promesasDetalles);
         setListaPokemon(detallesCompletos);
+        localStorage.setItem("pokedex_data", JSON.stringify(detallesCompletos));
       } catch (error) {
         console.error(error);
       } finally {
