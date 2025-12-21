@@ -2,6 +2,7 @@ import styles from "./Pokedex.module.scss";
 import pokemons from "../../data/pokemons.json";
 import { PokemonCard } from "../PokemonCard/PokemonCard";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export const Pokedex = () => {
   interface Pokemon {
@@ -82,13 +83,15 @@ export const Pokedex = () => {
         </div>
         <div className={styles.container_pokemon}>
           {pokemonFiltro.map((pokemon) => (
-            <PokemonCard
-              key={pokemon.id}
-              id={pokemon.id}
-              name={pokemon.name}
-              image={pokemon.sprite}
-              types={pokemon.types}
-            />
+            <Link key={pokemon.id} to={`/pokedex/${pokemon.name}`}>
+              <PokemonCard
+                key={pokemon.id}
+                id={pokemon.id}
+                name={pokemon.name}
+                image={pokemon.sprite}
+                types={pokemon.types}
+              />
+            </Link>
           ))}
         </div>
       </>
