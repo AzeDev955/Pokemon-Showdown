@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { Header } from "./components/Header/Header";
 import { Pokedex } from "./components/Pokedex/Pokedex";
+import { PokemonDetails } from "./components/PokemonDetails/PokemonDetails";
 
 function App() {
   return (
@@ -12,14 +13,9 @@ function App() {
       <Header />
       <Routes>
         <Route path="/pokedex" element={<Pokedex />}></Route>
-      </Routes>
-      <Routes>
+        <Route path="/pokedex/:name" element={<PokemonDetails />}></Route>
         <Route path="/equipo" element={<Header />}></Route>
-      </Routes>
-      <Routes>
         <Route path="/jugar" element={<Header />}></Route>
-      </Routes>
-      <Routes>
         <Route path="/login" element={<Header />}></Route>
       </Routes>
     </BrowserRouter>
