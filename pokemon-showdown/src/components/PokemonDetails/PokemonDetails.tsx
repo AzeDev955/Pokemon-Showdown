@@ -18,8 +18,10 @@ export const PokemonDetails = () => {
   const pokemon = pokemons.find((p) => {
     return p.name.toLowerCase() === name?.toLowerCase();
   });
+  const calcularPesoAltura = (medida: number) => {
+    return medida / 10;
+  };
   if (!pokemon) {
-    //mi idea era un simple return, la IA pone cosas mas chulas
     return (
       <div className={styles.error_container}>
         <h2>¡Ese Pokémon no existe!</h2>
@@ -57,15 +59,17 @@ export const PokemonDetails = () => {
               </span>
             ))}
           </div>
+          <div className={styles.physique}>
+            <h2>Altura: {calcularPesoAltura(pokemon.height)}M</h2>
+            <h2>Peso: {calcularPesoAltura(pokemon.weight)} KG</h2>
+          </div>
         </div>
 
         <div className={styles.stats_info}>
-          <h3>Estadísticas Base</h3>
+          <h3>Estadisticas</h3>
           {Object.entries(stats).map(([statName, valor]) => (
             <div key={statName} className={styles.stat_row}>
-              <span className={styles.stat_name}>
-                {statName.replace("sp_", "S.").replace("_", " ")}
-              </span>
+              <span className={styles.stat_name}>{statName}:</span>
               <div className={styles.bar_container}>
                 <div
                   className={styles.bar_fill}
@@ -84,7 +88,16 @@ export const PokemonDetails = () => {
               <span className={styles.stat_value}>{valor}</span>
             </div>
           ))}
-
+          <div>
+            <h3>Habilidades</h3>
+            <div className={styles.abilities_container}>
+              {pokemon.abilities.map((a) => (
+                <span key={a.name} className={styles.abilities}>
+                  {a.name}
+                </span>
+              ))}
+            </div>
+          </div>
           <div className={styles.moves_section}>
             <h3>Movimientos ({pokemon.moves?.length || 0})</h3>
             <div className={styles.moves_list}>

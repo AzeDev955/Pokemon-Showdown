@@ -39,7 +39,6 @@
   }
 }
 
-/* IZQUIERDA */
 .header_info {
   flex: 1;
   background-color: rgba(0, 0, 0, 0.02);
@@ -84,10 +83,16 @@
   }
 }
 
-/* DERECHA */
+.physique {
+  padding-top: 5vh;
+  color: #555;
+  letter-spacing: 2px;
+}
+
 .stats_info {
   flex: 1.5;
   padding: 40px;
+  letter-spacing: 1px;
 
   h3 {
     margin-bottom: 20px;
@@ -107,8 +112,9 @@
     width: 80px;
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: #777;
+    margin-right: 2vh;
   }
 
   .bar_container {
@@ -165,6 +171,14 @@
       color: black;
     }
   }
+}
+
+.abilities {
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  padding-right: 1vh;
+  color: #555;
 }
 
 @keyframes float {

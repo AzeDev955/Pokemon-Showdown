@@ -19,8 +19,12 @@ const generarDatos = async () => {
       return {
         id: detalles.id,
         name: detalles.name,
+        height: detalles.height,
+        weight: detalles.weight,
         types: detalles.types.map((t) => t.type.name),
         sprite: detalles.sprites.other["official-artwork"].front_default,
+        fightSpriteFront: detalles.sprites.front_default,
+        fightSpriteBack: detalles.sprites.back_default,
         stats: {
           hp: detalles.stats[0].base_stat,
           attack: detalles.stats[1].base_stat,
